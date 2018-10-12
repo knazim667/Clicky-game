@@ -2,7 +2,8 @@ import React from "react";
 import { Link } from "react-router-dom";
 import "./Navbar.css";
 
-const Navbar = () => (
+
+const Navbar = props => (
 
     <nav className="navbar navbar-expand-lg navbar-light fixed-top">
         <Link className="navbar-brand" to="/">
@@ -14,11 +15,11 @@ const Navbar = () => (
         <div className="collapse navbar-collapse" id="navabrNav">
             <ul className="navbar-nav ml-auto">
                 <li className="nav-item">
-                    Click Picture Game Start !
+                    {props.rightWrong}
                 </li>
             </ul>
             <span className="navbar-text ml-auto">
-                Score:  | Top Score:
+                Score:{props.score}  | Top Score:{props.topScore}
             </span>
         </div>
     </nav>

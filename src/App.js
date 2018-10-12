@@ -8,9 +8,63 @@ import Cards from "./Cards.json";
 import Footer from "./components/Footer";
 
 
+function shuffleCards(array) {
+  for (let i= array.length -1; i>0; i--){
+    let j = Math.floor(Math.random() * (i+1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+  return array;
+};
+
 class App extends Component {
   state = {
-    Cards
+    Cards,
+    currentScore: 0,
+    topScore: 0,
+    rightWrong: "Click on Image to Begin !",
+    clicked: [],
+  };
+
+  handleClick = id => {
+    if(this.state.clicked.indexOf(id) === -1){
+      this.handleIncrement();
+      this.setState({ 
+        clicked: this.state.clicked.concat(id),
+        rightWrong: "You Guessed Incorrectly"
+      })
+    } else {
+      this.handleReset();
+    }
+  };
+
+  handleIncrement = () => {
+    const newScore = this.state.currentScore +1;
+    this.setState({
+      currentScore:newScore,
+      rightWrong: "You Guessed Correctly"
+    });
+    if (newScore >= this.state.topScore) {
+      this.setState({ topScore: newScore});
+    }
+    else if (newScore === 12) {
+      this.state({ rightWrong : "You win!"});
+    }
+    this.handleShuffle();
+  };
+
+  handleReset = () => {
+    this.setState({
+      currentScore: 0,
+      topScore: this.state.topScore,
+      rightWrong:"Click on Image to Begin !",
+      clicked: []
+    });
+    this.handleShuffle();
+  };
+
+  handleShuffle = () => {
+    let shuffledCards = shuffleCards(Cards);
+    this.setState({ Cards: shuffledCards});
   };
 
   render () {
@@ -18,12 +72,20 @@ class App extends Component {
 
       <Router>
         <div>
-        <Navbar />
+        <Navbar 
+          score={this.state.currentScore}
+          topScore={this.state.topScore}
+          rightWrong={this.state.rightWrong}
+        />
         <Jumbotron />
         <Wrapper>
           {this.state.Cards.map(card => (
              <Card 
              key={card.id}
+             handleClick={this.handleClick}
+             handleIncrement={this.handleIncrement}
+             handleReset={this.handleReset}
+             handleShuffle={this.handleShuffle}
              id={card.id}
              image={card.image}
               />
