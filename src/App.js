@@ -5,7 +5,7 @@ import Navbar from "./components/Navbar";
 import Jumbotron from './components/Jumbotron';
 import Card from "./components/Card"; 
 import Cards from "./Cards.json";
-//import Footer from "./components/Footer";
+import Footer from "./components/Footer";
 
 
 class App extends Component {
@@ -27,10 +27,9 @@ class App extends Component {
              id={card.id}
              image={card.image}
               />
-
           ))}
-
         </Wrapper>
+        <Footer />
         </div>
       
       </Router>
