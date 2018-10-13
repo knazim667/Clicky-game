@@ -29,8 +29,7 @@ class App extends Component {
     if(this.state.clicked.indexOf(id) === -1){
       this.handleIncrement();
       this.setState({ 
-        clicked: this.state.clicked.concat(id),
-        rightWrong: "You Guessed Incorrectly"
+        clicked: this.state.clicked.concat(id)
       })
     } else {
       this.handleReset();
