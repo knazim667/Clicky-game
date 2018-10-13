@@ -55,7 +55,7 @@ class App extends Component {
     this.setState({
       currentScore: 0,
       topScore: this.state.topScore,
-      rightWrong:"Click on Image to Begin !",
+      rightWrong:"You Guessed Wrong Try Again !",
       clicked: []
     });
     this.handleShuffle();
